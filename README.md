@@ -14,5 +14,6 @@ The Full Stack Open 2020 course by University of Helsinki serves as an introduct
 - <a href="https://fullstackopen.com/en/part7" target="_blank">Part 7</a> `React router, custom hooks, styling app with CSS and webpack`
 - <a href="https://fullstackopen.com/en/part8" target="_blank">Part 8</a> `GraphQL`
 - <a href="https://fullstackopen.com/en/part9" target="_blank">Part 9</a> `Typescript`
+- <a href="https://fullstackopen.com/en/part10" target="_blank">Part 10</a> `React Native`
 
 Visit https://fullstackopen.com/en for more information.
