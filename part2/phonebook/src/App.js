@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import Person from "./components/Person";
+import PersonForm from "./components/PersonForm";
+import Persons from "./components/Persons";
+import Filter from "./components/Filter";
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -21,6 +23,8 @@ const App = () => {
       number: newNumber,
     };
 
+    if (personObject.name === "" || personObject.number === "")
+      return window.alert("Please provide a name and a number!");
     if (persons.some((person) => person.name === personObject.name) === true) {
       return window.alert(`${newName} is already added to phonebook`);
     } else {
@@ -54,27 +58,19 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <div>
-        search: <input value={search} onChange={handleSearch} />
-      </div>
-      <h2>Add a new person</h2>
-      <form onSubmit={addPerson}>
-        <div>
-          name: <input value={newName} onChange={handleNameChange} />
-        </div>
-        <div>
-          number: <input value={newNumber} onChange={handleNumberChange} />
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
-      <h2>Numbers</h2>
-      <ul>
-        {personsToShow.map((person) => (
-          <Person key={person.name} person={person} />
-        ))}
-      </ul>
+      <Filter search={search} handleSearch={handleSearch} />
+      <h3>Add a new person</h3>
+      <PersonForm
+        addPerson={addPerson}
+        newName={newName}
+        handleNameChange={handleNameChange}
+        newNumber={newNumber}
+        handleNumberChange={handleNumberChange}
+      />
+      <h3>Numbers</h3>
+      {personsToShow.map((person) => (
+        <Persons key={person.name} person={person} />
+      ))}
     </div>
   );
 };
