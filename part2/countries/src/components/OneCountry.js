@@ -1,18 +1,34 @@
 import React from "react";
+import Weather from "./Weather";
 
-const OneCountry = ({ countries }) => {
+const OneCountry = ({ showCountries }) => {
   return (
     <div>
-      <h1>{countries[0].name}</h1>
-      <p>capital {countries[0].capital}</p>
-      <p>population {countries[0].population}</p>
-      <h2>languages</h2>
-      <ul>
-        {countries[0].languages.map((language) => (
-          <li key={language.name}>{language.name}</li>
-        ))}
-      </ul>
-      <img src={countries[0].flag} alt="flag" height={200} width={300} />
+      <h1>{showCountries[0].name}</h1>
+      <div>
+        <p>capital {showCountries[0].capital}</p>
+        <p>population {showCountries[0].population}</p>
+      </div>
+      <h2>Spoken languages</h2>
+      <div>
+        <ul>
+          {showCountries[0].languages.map((country) => (
+            <li key={country.name}>{country.name}</li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <img
+          src={showCountries[0].flag}
+          alt="country flag"
+          width="150"
+          height="100"
+        />
+      </div>
+      <div>
+        <h2>Weather in {showCountries[0].capital}</h2>
+        <Weather showCountries={showCountries} />
+      </div>
     </div>
   );
 };
