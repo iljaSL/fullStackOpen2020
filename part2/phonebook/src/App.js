@@ -2,27 +2,34 @@ import React, { useState, useEffect } from "react";
 import PersonForm from "./components/PersonForm";
 import Persons from "./components/Persons";
 import Filter from "./components/Filter";
-import axios from "axios";
+import Notification from "./components/Notification";
+import personServices from "./services/personServices";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
-  const [showAll, setShowAll] = useState(true);
   const [search, setSearch] = useState("");
+  const [showAll] = useState(true);
+  const [notification, setNotification] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
-    console.log("effect");
-    axios.get("http://localhost:3001/persons").then((response) => {
-      console.log("promise fulfilled");
-      setPersons(response.data);
+    personServices.getAll().then((intialNumbers) => {
+      setPersons(intialNumbers);
     });
   }, []);
-  console.log("render", persons.length, "notes");
+
+  const notificationMessage = (text, type) => {
+    setNotification(`${text}`);
+    setErrorMessage(type);
+    setTimeout(() => setNotification(null), 3000);
+    setNewName("");
+    setNewNumber("");
+  };
 
   const addPerson = (event) => {
     event.preventDefault();
-    console.log("Button Clicked");
     const personObject = {
       name: newName,
       number: newNumber,
@@ -30,17 +37,60 @@ const App = () => {
 
     if (personObject.name === "" || personObject.number === "")
       return window.alert("Please provide a name and a number!");
-    if (persons.some((person) => person.name === personObject.name) === true) {
-      return window.alert(`${newName} is already added to phonebook`);
+    if (persons.map((person) => person.name).includes(newName)) {
+      if (
+        window.confirm(
+          `${newName} is already in the phonebook. Do you want to update the number?`
+        )
+      ) {
+        const id = persons.find((p) => p.name === newName).id;
+
+        personServices
+          .update(id, personObject)
+          .then((updatedPerson) => {
+            setPersons(
+              persons.map((person) =>
+                person.id === id ? updatedPerson : person
+              )
+            );
+            notificationMessage(`${newName} has been updated!`, "update");
+          })
+          .catch((error) => {
+            if (error.message === "Request failed with status code 404") {
+              notificationMessage(
+                `${newName} has been already removed from the phonebook!`,
+                "error"
+              );
+            }
+          });
+      }
     } else {
-      setPersons(persons.concat(personObject));
-      setNewNumber("");
-      setNewName("");
+      personServices.create(personObject).then((returnedPerson) => {
+        setPersons(persons.concat(returnedPerson));
+        notificationMessage(`${newName} added to the phonebook!`, "ok");
+      });
+    }
+  };
+
+  const handleDelete = (id, name) => {
+    if (window.confirm(`Are you sure you want to delete ${name}?`)) {
+      personServices
+        .deleteEntry(id)
+        .then(() => {
+          setPersons(persons.filter((person) => person.id !== id));
+          notificationMessage(`${name} has been deleted!`, "ok");
+        })
+        .catch(() => {
+          notificationMessage(
+            `${name} has been already removed from the server.`,
+            "error"
+          );
+          setPersons(persons.filter((p) => p.id !== id));
+        });
     }
   };
 
   const handleSearch = (event) => {
-    console.log(event.target.value);
     setSearch(event.target.value);
   };
 
@@ -51,18 +101,17 @@ const App = () => {
     : persons;
 
   const handleNameChange = (event) => {
-    console.log(event.target.value);
     setNewName(event.target.value);
   };
 
   const handleNumberChange = (event) => {
-    console.log(event.target.value);
     setNewNumber(event.target.value);
   };
 
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={notification} type={errorMessage} />
       <Filter search={search} handleSearch={handleSearch} />
       <h3>Add a new person</h3>
       <PersonForm
@@ -74,7 +123,11 @@ const App = () => {
       />
       <h3>Numbers</h3>
       {personsToShow.map((person) => (
-        <Persons key={person.name} person={person} />
+        <Persons
+          key={person.name}
+          person={person}
+          handleDelete={() => handleDelete(person.id, person.name)}
+        />
       ))}
     </div>
   );
