@@ -7,7 +7,7 @@ The Full Stack Open 2020 course by University of Helsinki serves as an introduct
 - <a href="https://fullstackopen.com/en/part0" target="_blank">Part 0</a> `Fundamentals of Web apps` ✔️
 - <a href="https://fullstackopen.com/en/part1" target="_blank">Part 1</a> `Introduction to React` ✔️
 - <a href="https://fullstackopen.com/en/part2" target="_blank">Part 2</a> `Communicating with server` ✔️
-- <a href="https://fullstackopen.com/en/part3" target="_blank">Part 3</a> `Programming a server with NodeJS and Express`
+- <a href="https://fullstackopen.com/en/part3" target="_blank">Part 3</a> `Programming a server with NodeJS and Express` Part3 can be found <a href"https://github.com/iljaSL/fullStackOpen2020-part3">here</a> ✔️
 - <a href="https://fullstackopen.com/en/part4" target="_blank">Part 4</a> `Testing Express servers, user administration`
 - <a href="https://fullstackopen.com/en/part5" target="_blank">Part 5</a> `Testing React apps`
 - <a href="https://fullstackopen.com/en/part6" target="_blank" >Part 6</a> `State management with Redux`
