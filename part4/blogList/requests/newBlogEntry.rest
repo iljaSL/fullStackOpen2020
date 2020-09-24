@@ -1,0 +1,9 @@
+POST http://localhost:3001/api/blogs HTTP/1.1
+content-Type: application/json
+
+{
+  "title": "Cool Post 3",
+  "author": "Awesome",
+  "url": "https://ismelich.tech/",
+  "likes": "3"
+}
