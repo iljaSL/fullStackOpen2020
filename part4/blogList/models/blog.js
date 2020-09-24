@@ -1,5 +1,5 @@
-import mongoose from 'mongoose';
-import uniqueValidator from 'mongoose-unique-validator';
+const mongoose = require('mongoose');
+const uniqueValidator = require('mongoose-unique-validator');
 
 const blogSchema = mongoose.Schema({
 	title: String,
@@ -20,4 +20,4 @@ blogSchema.set('toJSON', {
 
 const Blog = mongoose.model('Blog', blogSchema);
 
-export default Blog;
+module.exports = Blog;
