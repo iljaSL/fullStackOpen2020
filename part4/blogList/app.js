@@ -1,5 +1,6 @@
 const config = require('./utils/config.js');
 const express = require('express');
+require('express-async-errors');
 const app = express();
 const cors = require('cors');
 const blogsRouter = require('./controllers/blogs.js');
@@ -13,6 +14,7 @@ mongoose
 	.connect(config.MONGODB_URI, {
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
+		useCreateIndex: true,
 	})
 	.then(() => {
 		console.log('connected to MongoDB');
