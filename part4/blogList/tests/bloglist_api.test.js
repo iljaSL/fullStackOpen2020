@@ -125,6 +125,28 @@ test('unique identifier property of the blog posts is named id not _id', async (
 	expect(post.id).toBeDefined();
 });
 
+test('update the blog post', async () => {
+	const post = {
+		title: 'Cool Post 55',
+		author: 'Jack Awwesome',
+		url: 'https://ismelich.tech/',
+		likes: 5,
+	};
+
+	const postsAtStart = await helper.postsInDb();
+	const postToUpdate = postsAtStart[0];
+
+	await api.put(`/api/blogs/${postToUpdate.id}`).send(post).expect(200);
+
+	const postsAtEnd = await helper.postsInDb();
+	const postAfterUpdate = postsAtEnd[0];
+
+	expect(postAfterUpdate.title).toEqual(post.title);
+	expect(postAfterUpdate.author).toEqual(post.author);
+	expect(postAfterUpdate.url).toEqual(post.url);
+	expect(postAfterUpdate.likes).toEqual(post.likes);
+});
+
 afterAll(() => {
 	mongoose.connection.close();
 });
