@@ -1,6 +1,4 @@
-const { response } = require('express');
 const express = require('express');
-const { request } = require('../app.js');
 const Blog = require('../models/blog.js');
 
 const blogsRouter = express.Router();
