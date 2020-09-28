@@ -1,4 +1,4 @@
-const { post } = require('../app');
+const _ = require('lodash');
 const Blog = require('../models/blog');
 
 const initialPosts = [
@@ -34,8 +34,35 @@ const postsInDb = async () => {
 	return posts.map((post) => post.toJSON());
 };
 
+const mostBlogs = (blogs) => {
+	const blogsEntries = _.countBy(blogs, 'author');
+	const getAuthorName = _.maxBy(_.keys(blogsEntries), (o) => blogsEntries[o]);
+	const getAuthorWithMostBlogs = _.pick(blogsEntries, getAuthorName);
+	let author = {};
+
+	author['author'] = getAuthorName;
+	author['blogs'] = getAuthorWithMostBlogs[getAuthorName];
+
+	return author;
+};
+
+const mostLikes = (blogs) => {
+	const authorWithMostLikes = _(blogs)
+		.groupBy('author')
+		.map((group, author) => {
+			return {
+				author: author,
+				likes: _.sum(_.map(group, 'likes')),
+			};
+		})
+		.value();
+	return _.maxBy(authorWithMostLikes, 'likes');
+};
+
 module.exports = {
 	initialPosts,
 	nonExistingId,
 	postsInDb,
+	mostBlogs,
+	mostLikes,
 };

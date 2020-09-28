@@ -147,6 +147,75 @@ test('update the blog post', async () => {
 	expect(postAfterUpdate.likes).toEqual(post.likes);
 });
 
+describe('most blogs entires and most likes', () => {
+	const blogs = [
+		{
+			likes: 17,
+			title: 'Cool Post 55',
+			author: 'Edsger W. Dijkstra',
+			url: 'https://ismelich.tech/',
+			id: '5f6e0a294ec27648f11ae327',
+		},
+		{
+			likes: 5,
+			title: 'Cool Post 55',
+			author: 'Jack Awwesome',
+			url: 'https://ismelich.tech/',
+			id: '5f6e0a294ec27648f11ae327',
+		},
+		{
+			likes: 6,
+			title: 'Cool Post 6',
+			author: 'Jack Awesome',
+			url: 'https://ismelich.tech/',
+			id: '5f6e0a2a4ec27648f11ae328',
+		},
+		{
+			likes: 3,
+			title: 'Cool Post 1',
+			author: 'Robert C. Martin',
+			url: 'https://ismelich.tech/',
+			id: '5f7194e1cbee1cc59de4085f',
+		},
+		{
+			likes: 3,
+			title: 'Cool Post 2',
+			author: 'Robert C. Martin',
+			url: 'https://ismelich.tech/',
+			id: '5f7194e5cbee1cc59de40860',
+		},
+		{
+			likes: 3,
+			title: 'Cool Post 3',
+			author: 'Robert C. Martin',
+			url: 'https://ismelich.tech/',
+			id: '5f7194eccbee1cc59de40861',
+		},
+	];
+
+	test('returns the author who has the largest amount of blogs', async () => {
+		const authorWithMostBlogs = {
+			author: 'Robert C. Martin',
+			blogs: 3,
+		};
+
+		const result = helper.mostBlogs(blogs);
+		console.log('RESULT', result);
+		expect(result).toEqual(authorWithMostBlogs);
+	});
+
+	test('blog posts with the largest amount of likes', async () => {
+		const authorWithMostLikes = {
+			author: 'Edsger W. Dijkstra',
+			likes: 17,
+		};
+
+		const result = helper.mostLikes(blogs);
+		console.log('RESULT', result);
+		expect(result).toEqual(authorWithMostLikes);
+	});
+});
+
 afterAll(() => {
 	mongoose.connection.close();
 });

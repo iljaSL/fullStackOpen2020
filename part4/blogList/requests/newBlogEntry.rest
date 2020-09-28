@@ -3,7 +3,7 @@ content-Type: application/json
 
 {
   "title": "Cool Post 3",
-  "author": "Awesome",
+  "author": "Robert C. Martin",
   "url": "https://ismelich.tech/",
   "likes": "3"
 }
