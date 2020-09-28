@@ -2,8 +2,9 @@ POST http://localhost:3001/api/blogs HTTP/1.1
 content-Type: application/json
 
 {
-  "title": "Cool Post 3",
+  "title": "Cool Post 10",
   "author": "Robert C. Martin",
   "url": "https://ismelich.tech/",
-  "likes": "3"
+  "likes": "3",
+  "userId": "5f71f4024ab628b860e55899"
 }
