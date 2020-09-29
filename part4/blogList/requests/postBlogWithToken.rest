@@ -6,5 +6,5 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ
   "title": "Cool Post 13",
   "author": "Robert C. Martin",
   "url": "https://ismelich.tech/",
-  "likes": "3",
+  "likes": "3"
 }
