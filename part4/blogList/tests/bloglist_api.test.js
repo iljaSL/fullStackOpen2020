@@ -272,6 +272,22 @@ describe('when there is initially one user in db', () => {
 	});
 });
 
+describe('username and password must be at least 3 characters long', () => {
+	test('password less than 3 chars', async () => {
+		const invalidUser = {
+			username: 'jonny',
+			password: '12',
+			name: 'Jonny B. Good',
+		};
+
+		const result = await api.post('/api/users').send(invalidUser);
+		expect(400);
+		expect(result.text).toContain(
+			'Username and Password must be at least 3 characters long!'
+		);
+	});
+});
+
 afterAll(() => {
 	mongoose.connection.close();
 });
