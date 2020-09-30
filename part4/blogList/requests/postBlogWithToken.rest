@@ -1,6 +1,6 @@
 POST http://localhost:3001/api/blogs HTTP/1.1
 content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1sdXVra2FpIiwiaWQiOiI1ZjczMTQyYjY1ZDhmODFmNWQ3NjQzMGIiLCJpYXQiOjE2MDEzODM0OTB9.dQGybdNnLCQgrnFO1IA_ILo5OKKuHvuSFpA3vJNc0ZI
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1sdXVra2FpIiwiaWQiOiI1Zjc0NTcyODljNmNjODE3ZWU5Y2JhYWMiLCJpYXQiOjE2MDE0NjAwMTJ9.92Vk-6wwVUpnEtwCCFnxHriG6faHQCQlEaJBBU9HpvM
 
 {
   "title": "Cool Post 13",

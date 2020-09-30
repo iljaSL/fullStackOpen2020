@@ -9,6 +9,7 @@ const initialPosts = [
 		url: 'https://ismelich.tech/',
 		likes: 2,
 	},
+
 	{
 		title: 'Cool Post 6',
 		author: 'Jack Awesome',

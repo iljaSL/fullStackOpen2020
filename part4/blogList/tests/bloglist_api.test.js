@@ -5,15 +5,36 @@ const app = require('../app');
 const api = supertest(app);
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
-
 const Blog = require('../models/blog');
+const { post } = require('../app');
+
+let token;
+
+beforeAll(async () => {
+	const validUser = {
+		username: 'jonny',
+		password: '123',
+		name: 'Jonny B. Good',
+	};
+
+	await User.deleteMany({});
+
+	await api.post('/api/users/').send({
+		username: validUser.username,
+		password: validUser.password,
+	});
+	const login = await api.post('/api/login/').send({
+		username: validUser.username,
+		password: validUser.password,
+	});
+	token = login.body.token;
+});
 
 beforeEach(async () => {
 	await Blog.deleteMany({});
 
 	for (let post of helper.initialPosts) {
-		let blogObject = new Blog(post);
-		await blogObject.save();
+		await new Blog(post).save();
 	}
 });
 
@@ -38,24 +59,22 @@ test('a specific post is within the returned notes', async () => {
 });
 
 test('a valid post can be added', async () => {
-	const newPost = {
-		title: 'Cool Post 8',
-		author: 'Jack Awesome',
-		url: 'https://ismelich.tech/',
-		likes: 10,
+	const newBlog = {
+		title: 'Cool Post 22',
+		author: 'Jonny B Good',
+		url: 'https://fullstackopen.com/en/part4/',
+		likes: 12,
 	};
 
 	await api
 		.post('/api/blogs')
-		.send(newPost)
+		.set('Authorization', `bearer ${token}`)
+		.send(newBlog)
 		.expect(200)
 		.expect('Content-Type', /application\/json/);
 
 	const postsAtEnd = await helper.postsInDb();
 	expect(postsAtEnd).toHaveLength(helper.initialPosts.length + 1);
-
-	const titles = postsAtEnd.map((n) => n.title);
-	expect(titles).toContain('Cool Post 8');
 });
 
 test('post without title is not added', async () => {
@@ -66,7 +85,11 @@ test('post without title is not added', async () => {
 		likes: 10,
 	};
 
-	await api.post('/api/blogs').send(newPost).expect(400);
+	await api
+		.post('/api/blogs')
+		.set('Authorization', `bearer ${token}`)
+		.send(newPost)
+		.expect(400);
 
 	const postsAtEnd = await helper.postsInDb();
 
@@ -76,8 +99,12 @@ test('post without title is not added', async () => {
 test('a post can be deleted', async () => {
 	const postsAtStart = await helper.postsInDb();
 	const postToDelete = postsAtStart[0];
+	console.log('POST TO DELETE', postToDelete.id);
+	await api
+		.delete(`/api/blogs/${postToDelete.id}`)
+		.set('Authorization', `bearer ${token}`)
+		.expect(204);
 
-	await api.delete(`/api/blogs/${postToDelete.id}`).expect(204);
 	const postsAtEnd = await helper.postsInDb();
 
 	expect(postsAtEnd).toHaveLength(helper.initialPosts.length - 1);
@@ -101,6 +128,7 @@ test('testing default like is 0, when no likes are available', async () => {
 
 	await api
 		.post('/api/blogs')
+		.set('Authorization', 'bearer ' + token)
 		.send(noLikes)
 		.expect(200)
 		.expect('Content-Type', /application\/json/);
@@ -117,7 +145,11 @@ test('title and url properties are missing from the request data, respond with 4
 		likes: 2,
 	});
 
-	await api.post('/api/blogs').send(badPost).expect(400);
+	await api
+		.post('/api/blogs')
+		.set('Authorization', 'bearer ' + token)
+		.send(badPost)
+		.expect(400);
 });
 
 test('unique identifier property of the blog posts is named id not _id', async () => {
@@ -156,42 +188,36 @@ describe('most blogs entires and most likes', () => {
 			title: 'Cool Post 55',
 			author: 'Edsger W. Dijkstra',
 			url: 'https://ismelich.tech/',
-			id: '5f6e0a294ec27648f11ae327',
 		},
 		{
 			likes: 5,
 			title: 'Cool Post 55',
 			author: 'Jack Awwesome',
 			url: 'https://ismelich.tech/',
-			id: '5f6e0a294ec27648f11ae327',
 		},
 		{
 			likes: 6,
 			title: 'Cool Post 6',
 			author: 'Jack Awesome',
 			url: 'https://ismelich.tech/',
-			id: '5f6e0a2a4ec27648f11ae328',
 		},
 		{
 			likes: 3,
 			title: 'Cool Post 1',
 			author: 'Robert C. Martin',
 			url: 'https://ismelich.tech/',
-			id: '5f7194e1cbee1cc59de4085f',
 		},
 		{
 			likes: 3,
 			title: 'Cool Post 2',
 			author: 'Robert C. Martin',
 			url: 'https://ismelich.tech/',
-			id: '5f7194e5cbee1cc59de40860',
 		},
 		{
 			likes: 3,
 			title: 'Cool Post 3',
 			author: 'Robert C. Martin',
 			url: 'https://ismelich.tech/',
-			id: '5f7194eccbee1cc59de40861',
 		},
 	];
 
