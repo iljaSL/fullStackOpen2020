@@ -6,24 +6,24 @@ const api = supertest(app);
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
 const Blog = require('../models/blog');
-const { post } = require('../app');
 
 let token;
 
 beforeAll(async () => {
+	await User.deleteMany({});
+
 	const validUser = {
 		username: 'jonny',
 		password: '123',
 		name: 'Jonny B. Good',
 	};
 
-	await User.deleteMany({});
-
-	await api.post('/api/users/').send({
+	await api.post('/api/users').send({
 		username: validUser.username,
 		password: validUser.password,
+		name: validUser.name,
 	});
-	const login = await api.post('/api/login/').send({
+	const login = await api.post('/api/login').send({
 		username: validUser.username,
 		password: validUser.password,
 	});
@@ -33,9 +33,9 @@ beforeAll(async () => {
 beforeEach(async () => {
 	await Blog.deleteMany({});
 
-	for (let post of helper.initialPosts) {
-		await new Blog(post).save();
-	}
+	const blogObjects = helper.initialPosts.map((blog) => new Blog(blog));
+	const promiseArray = blogObjects.map((blog) => blog.save());
+	await Promise.all(promiseArray);
 });
 
 test('posts are returned as json', async () => {
@@ -228,7 +228,6 @@ describe('most blogs entires and most likes', () => {
 		};
 
 		const result = helper.mostBlogs(blogs);
-		console.log('RESULT', result);
 		expect(result).toEqual(authorWithMostBlogs);
 	});
 
@@ -239,7 +238,6 @@ describe('most blogs entires and most likes', () => {
 		};
 
 		const result = helper.mostLikes(blogs);
-		console.log('RESULT', result);
 		expect(result).toEqual(authorWithMostLikes);
 	});
 });

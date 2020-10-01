@@ -9,7 +9,7 @@ usersRouter.get('/', async (request, response) => {
 		likes: 1,
 		url: 1,
 	});
-	response.json(users);
+	response.json(users.map((user) => user.toJSON()));
 });
 
 usersRouter.post('/', async (request, response) => {

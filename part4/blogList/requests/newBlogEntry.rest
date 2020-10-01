@@ -1,11 +1,10 @@
 POST http://localhost:3001/api/blogs HTTP/1.1
 content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1sdXVra2FpIiwiaWQiOiI1ZjczNTBiMmIzN2RmMTE5ZmFlMzBkNjMiLCJpYXQiOjE2MDEzOTI4MjV9.wHVlx2MuBIhS8E-b3WLROLC1ZtqY4-p9mx4HqBIFfAE
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1sdXVra2FpIiwiaWQiOiI1Zjc0ODFmNjExMTFhYjNkY2QwZjYyOGIiLCJpYXQiOjE2MDE0NzA5NzB9.z5SSI6dIO37LDKtgcfHLZ3akRehTA5t3y31jaPmpgWk
 
 {
-  "title": "Cool Post 22",
+  "title": "Cool Post 25",
   "author": "Robert C. Martin",
   "url": "https://ismelich.tech/",
-  "likes": "2",
-  "userId": "5f7350b2b37df119fae30d63"
+  "likes": "2"
 }
