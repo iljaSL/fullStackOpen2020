@@ -36,14 +36,10 @@ const App = () => {
 		}
 	};
 
-	return (
-		<div>
-			<h2>blogs</h2>
-			{blogs.map((blog) => (
-				<Blog key={blog.id} blog={blog} />
-			))}
-
-			<form>
+	const loginForm = () => (
+		<>
+			<h2>log in to application</h2>
+			<form onSubmit={handleLogin}>
 				<div>
 					username
 					<input
@@ -64,6 +60,57 @@ const App = () => {
 				</div>
 				<button type='submit'>login</button>
 			</form>
+		</>
+	);
+
+	// const blogForm = () => (
+	// 	<form onSubmit={addBlog}>
+	// 		<input value={newBlog} onChange={handleBlogChange} />
+	// 		<button type='submit'>save</button>
+	// 	</form>
+	// );
+
+	const showBlogs = () => {
+		return (
+			<div>
+				<p>{user.name} logged in</p>
+				<h2>blogs</h2>
+				{blogs.map((blog) => (
+					<Blog key={blog.id} blog={blog} />
+				))}
+			</div>
+		);
+	};
+
+	useEffect(() => {
+		blogService.getAll().then((blogs) => setBlogs(blogs));
+	}, []);
+
+	return (
+		<div>
+			{user === null ? loginForm() : showBlogs()}
+
+			{/* <form>
+				<div>
+					username
+					<input
+						type='text'
+						value={username}
+						name='Username'
+						onChange={({ target }) => setUsername(target.value)}
+					/>
+				</div>
+				<div>
+					password
+					<input
+						type='password'
+						value={password}
+						name='Password'
+						onChange={({ target }) => setPassword(target.value)}
+					/>
+				</div>
+				<button type='submit'>login</button>
+			</form> */}
 		</div>
 	);
 };
