@@ -3,13 +3,12 @@ import Blog from './components/Blog';
 import blogService from './services/blogs';
 import loginService from './services/login';
 import Notification from './components/Notification';
+import Togglable from './components/Togglable';
+import LoginForm from "./components/LoginForm";
 
 const App = () => {
 	const [blogs, setBlogs] = useState([]);
 	const [newBlog, setNewBlog] = useState('');
-	const [showAll, setShowAll] = useState(true);
-	const [username, setUsername] = useState('');
-	const [password, setPassword] = useState('');
 	const [user, setUser] = useState(null);
 	const [title, setTitle] = useState('');
 	const [author, setAuthor] = useState('');
@@ -42,10 +41,7 @@ const App = () => {
 		setAuthor('');
 	};
 
-	const handleLogin = async (event) => {
-		event.preventDefault();
-		console.log('loggin in with', username, password);
-
+	const handleLogin = async ({ username, password }) => {
 		try {
 			const user = await loginService.login({
 				username,
@@ -54,8 +50,6 @@ const App = () => {
 
 			window.localStorage.setItem('loggedBlogAppUser', JSON.stringify(user));
 			setUser(user);
-			setUsername('');
-			setPassword('');
 		} catch (exception) {
 			notificationMessage(`wrong username or password`, 'error');
 			console.log(exception);
@@ -79,32 +73,13 @@ const App = () => {
 		}
 	};
 
-	const loginForm = () => (
-		<>
-			<h2>log in to application</h2>
-			<form onSubmit={handleLogin}>
-				<div>
-					username
-					<input
-						type='text'
-						value={username}
-						name='Username'
-						onChange={({ target }) => setUsername(target.value)}
-					/>
-				</div>
-				<div>
-					password
-					<input
-						type='password'
-						value={password}
-						name='Password'
-						onChange={({ target }) => setPassword(target.value)}
-					/>
-				</div>
-				<button type='submit'>login</button>
-			</form>
-		</>
-	);
+	const loginForm = () => {
+		return (
+			<Togglable label="log in">
+				<LoginForm handleLogin={handleLogin} />
+			</Togglable>
+		);
+	};
 
 	const blogForm = () => (
 		<div>
@@ -162,29 +137,7 @@ const App = () => {
 	return (
 		<div>
 			<Notification message={notification} type={errorMessage} />
-			{user === null ? loginForm() : showBlogs()}
-
-			{/* <form>
-				<div>
-					username
-					<input
-						type='text'
-						value={username}
-						name='Username'
-						onChange={({ target }) => setUsername(target.value)}
-					/>
-				</div>
-				<div>
-					password
-					<input
-						type='password'
-						value={password}
-						name='Password'
-						onChange={({ target }) => setPassword(target.value)}
-					/>
-				</div>
-				<button type='submit'>login</button>
-			</form> */}
+			{user ? showBlogs() : loginForm() }
 		</div>
 	);
 };
