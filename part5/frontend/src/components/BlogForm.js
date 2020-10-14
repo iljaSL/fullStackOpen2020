@@ -28,14 +28,14 @@ const BlogForm = ({ setBlogs, token, setNotification, setErrorMessage, hideBlogF
             <h2>create new</h2>
             <form onSubmit={createBlog}>
                     <div>
-                       Title:
+                       title:
                         <input
                         value={title}
                         name="Title"
                         onChange={({ target }) => setTitle(target.value)}/>
                     </div>
                     <div>
-                       Author:
+                       author:
                         <input
                         value={author}
                         name="Author"
@@ -43,7 +43,7 @@ const BlogForm = ({ setBlogs, token, setNotification, setErrorMessage, hideBlogF
                     />
                     </div>
                     <div>
-                       URL:
+                       url:
                         <input
                         value={url}
                         name="URL"
