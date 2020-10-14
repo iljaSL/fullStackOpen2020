@@ -1,8 +1,25 @@
-import React from 'react'
-const Blog = ({ blog }) => (
-  <div>
-    {blog.title} {blog.author}
-  </div>
-)
+import React, { useState } from 'react';
 
-export default Blog
+const Blog = ({ blog }) => {
+  const [visibility, setVisibility] = useState(false);
+  const toggleVisibility = () => {
+    setVisibility(!visibility);
+  };
+
+  return (
+      <>
+        {blog.title}  {blog.author} <button onClick={toggleVisibility}>{visibility ? 'Hide' : 'View'}</button>
+        {
+          visibility &&
+          <div>
+            <p>
+              link: <a href={blog.url} target='_blank'>{blog.url}</a>
+            </p>
+          </div>
+        }
+        <br/>
+      </>
+  )
+}
+
+export default Blog;

@@ -1,22 +1,32 @@
 import React, { useState } from 'react';
+import loginService from '../services/login';
 
-const LoginForm = ({ handleLogin }) => {
+const LoginForm = ({ setUser, setNotification, setErrorMessage }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-const handleLoginForm = e => {
-    e.preventDefault();
-    setUsername('');
-    setPassword('');
-    handleLogin({ username, password });
+    const handleLogin = async event => {
+        event.preventDefault();
+        try {
+            const user = await loginService.login({
+                username,
+                password,
+            });
+            setUsername('');
+            setPassword('');
+            setUser(user);
+            localStorage.setItem('user', JSON.stringify(user));
+        } catch (exception) {
+            setNotification(`wrong username or password`);
+            setErrorMessage('error')
+    }
 }
-
 return (
         <>
-            <h2>log in to application</h2>
-            <form onSubmit={handleLoginForm}>
+            <h2>log in to the application</h2>
+            <form onSubmit={handleLogin}>
                 <div>
-                    username
+                    <label htmlFor='username'>Username: </label>
                     <input
                         type='text'
                         value={username}
@@ -25,7 +35,7 @@ return (
                     />
                 </div>
                 <div>
-                    password
+                    <label htmlFor='password'>Password: </label>
                     <input
                         type='password'
                         value={password}
