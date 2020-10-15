@@ -8,13 +8,6 @@ const App = () => {
 	const [notification, setNotification] = useState(null);
 	const [errorMessage, setErrorMessage] = useState(null);
 
-	// const notificationMessage = (text, type) => {
-	// 	setNotification(`${text}`);
-	// 	setErrorMessage(type);
-	// 	setTimeout(() => setNotification(null), 3000);
-
-	// };
-
 	return (
 		<div>
 			<Notification

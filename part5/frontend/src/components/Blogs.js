@@ -21,6 +21,39 @@ const Blogs = ({ user, setUser, setNotification, setErrorMessage }) => {
 		localStorage.clear();
 	};
 
+	const countLikes = async (blog) => {
+		try {
+			const updatedBlog = await blogService.updateBlogPost(blog.id, {
+				title: blog.title,
+				author: blog.author,
+				url: blog.url,
+				likes: blog.likes + 1,
+			});
+			setBlogs(blogs.map((item) => (item.id === blog.id ? updatedBlog : item)));
+		} catch (error) {
+			setNotification(`Ops`);
+			setErrorMessage('error');
+		}
+	};
+
+	const removeBlogPost = async (blog) => {
+		if (window.confirm(`Remove blog ${blog.title} by ${blog.author}?`)) {
+			try {
+				const status = await blogService.removeBlogPost(blog.id, user.token);
+				if (status === 204) {
+					setBlogs(blogs.filter((item) => item.id !== blog.id));
+					setNotification(`Blog ${blog.title} by ${blog.author} removed`);
+					setErrorMessage('ok');
+				}
+			} catch (exception) {
+				setNotification(
+					`${blog.title} could not be delete, something went wrong.`
+				);
+				setErrorMessage('error');
+			}
+		}
+	};
+
 	return (
 		<div>
 			<h2>blogs</h2>
@@ -36,9 +69,20 @@ const Blogs = ({ user, setUser, setNotification, setErrorMessage }) => {
 					hideBlogForm={hideBlogForm}
 				/>
 			</Togglable>
-			{blogs.map((blog) => (
-				<Blog key={blog.id} blog={blog} />
-			))}
+			<div>
+				{[]
+					.concat(blogs)
+					.sort((firstBlog, secondBlog) => secondBlog.likes - firstBlog.likes)
+					.map((blog) => (
+						<Blog
+							key={blog.id}
+							blog={blog}
+							username={user.username}
+							countLikes={countLikes}
+							removeBlogPost={removeBlogPost}
+						/>
+					))}
+			</div>
 		</div>
 	);
 };

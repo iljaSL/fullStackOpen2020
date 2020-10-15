@@ -4,8 +4,8 @@ const Notification = ({ message, type, setNotification, setErrorMessage }) => {
 	useEffect(() => {
 		if (message) {
 			const timer = setTimeout(() => {
-				setNotification(null);
-				setErrorMessage(null);
+				setNotification('');
+				setErrorMessage('');
 			}, 5000);
 			return () => clearTimeout(timer);
 		}
