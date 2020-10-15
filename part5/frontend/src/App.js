@@ -8,22 +8,35 @@ const App = () => {
 	const [notification, setNotification] = useState(null);
 	const [errorMessage, setErrorMessage] = useState(null);
 
-	const notificationMessage = (text, type) => {
-		setNotification(`${text}`);
-		setErrorMessage(type);
-		setTimeout(() => setNotification(null), 3000);
+	// const notificationMessage = (text, type) => {
+	// 	setNotification(`${text}`);
+	// 	setErrorMessage(type);
+	// 	setTimeout(() => setNotification(null), 3000);
 
-	};
-
+	// };
 
 	return (
 		<div>
-			<Notification notificationMessage={notificationMessage} message={notification} type={errorMessage} />
-			{
-				user ?
-					<Blogs user={user} setUser={setUser} setNotification={setNotification} setErrorMessage={setErrorMessage} />
-					: <LoginForm setUser={setUser} setNotification={setNotification} setErrorMessage={setErrorMessage} />
-			}
+			<Notification
+				message={notification}
+				type={errorMessage}
+				setNotification={setNotification}
+				setErrorMessage={setErrorMessage}
+			/>
+			{user ? (
+				<Blogs
+					user={user}
+					setUser={setUser}
+					setNotification={setNotification}
+					setErrorMessage={setErrorMessage}
+				/>
+			) : (
+				<LoginForm
+					setUser={setUser}
+					setNotification={setNotification}
+					setErrorMessage={setErrorMessage}
+				/>
+			)}
 		</div>
 	);
 };

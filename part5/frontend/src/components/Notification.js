@@ -1,6 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-const Notification = ({ message, type }) => {
+const Notification = ({ message, type, setNotification, setErrorMessage }) => {
+	useEffect(() => {
+		if (message) {
+			const timer = setTimeout(() => {
+				setNotification(null);
+				setErrorMessage(null);
+			}, 5000);
+			return () => clearTimeout(timer);
+		}
+		// eslint-disable-next-line
+	}, [message]);
+
 	const successNotification = {
 		background: '#DFF2BF',
 		color: '#4F8A10',
