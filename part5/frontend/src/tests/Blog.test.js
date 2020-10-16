@@ -6,7 +6,6 @@ import { render, fireEvent } from '@testing-library/react';
 describe('testing the Blog component', () => {
     let component;
     const updateMockHandler = jest.fn();
-    const removeMockHandler = jest.fn();
 
     beforeEach(() => {
         const blog = {
