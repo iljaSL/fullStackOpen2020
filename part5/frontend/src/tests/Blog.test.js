@@ -23,7 +23,7 @@ describe('testing the Blog component', () => {
         };
 
         component = render(
-            <Blog blog={blog} />
+            <Blog blog={blog} countLikes={updateMockHandler} />
         )
     })
 
@@ -41,5 +41,16 @@ describe('testing the Blog component', () => {
         expect(component.container).toHaveTextContent('https://test.com');
         expect(component.container).toHaveTextContent('likes');
         expect(component.container).toHaveTextContent('3');
+    })
+
+    test('ensure that if the like button is clicked twice, the event handler the component received as props is called twice.', () => {
+        fireEvent.click(component.container.querySelector('.toggle-button'));
+
+        const likeButton = component.container.querySelector('.like-button');
+
+        fireEvent.click(likeButton);
+        fireEvent.click(likeButton);
+
+        expect(updateMockHandler.mock.calls.length).toBe(2);
     })
 })

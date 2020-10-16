@@ -19,7 +19,7 @@ const Blog = ({ blog, countLikes, username, removeBlogPost }) => {
     <div style={blogStyle}>
       <div className={'blog-heading'}>
         {blog.title} by {blog.author}
-        <button onClick={toggleVisibility}>{visibility ? 'hide' : 'view'}</button>
+        <button className='toggle-button' onClick={toggleVisibility}>{visibility ? 'hide' : 'view'}</button>
       </div>
       {visibility && (
         <div className='blog-details'>
