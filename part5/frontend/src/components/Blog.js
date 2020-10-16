@@ -17,18 +17,20 @@ const Blog = ({ blog, countLikes, username, removeBlogPost }) => {
 
   return (
     <div style={blogStyle}>
-      {blog.title} by {blog.author}
-      <button onClick={toggleVisibility}>{visibility ? 'hide' : 'view'}</button>
+      <div className={'blog-heading'}>
+        {blog.title} by {blog.author}
+        <button onClick={toggleVisibility}>{visibility ? 'hide' : 'view'}</button>
+      </div>
       {visibility && (
-        <div>
+        <div className='blog-details'>
           <p>
-						link:
+            link:
             <a href={blog.url} target='_blank' rel='noopener noreferrer'>
               {blog.url}
             </a>
           </p>
           <p>
-						likes {blog.likes}{' '}
+            likes {blog.likes}{' '}
             <button onClick={() => countLikes(blog)}>like</button>
           </p>
           <p>posted by {blog.user.name}</p>
