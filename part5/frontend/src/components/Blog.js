@@ -31,7 +31,7 @@ const Blog = ({ blog, countLikes, username, removeBlogPost }) => {
           </p>
           <p>
             likes {blog.likes}{' '}
-            <button onClick={() => countLikes(blog)}>like</button>
+            <button className='like-button' onClick={() => countLikes(blog)}>like</button>
           </p>
           <p>posted by {blog.user.name}</p>
           {blog.user.username === username && (

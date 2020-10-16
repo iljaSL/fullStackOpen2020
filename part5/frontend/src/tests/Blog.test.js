@@ -33,4 +33,13 @@ describe('testing the Blog component', () => {
         )
         expect(element).toBeDefined()
     })
+
+    test('check that the blogs url and number of likes are shown when the button controlling the shown details has been clicked', () => {
+        const button = component.getByText('view')
+        fireEvent.click(button)
+
+        expect(component.container).toHaveTextContent('https://test.com');
+        expect(component.container).toHaveTextContent('likes');
+        expect(component.container).toHaveTextContent('3');
+    })
 })
