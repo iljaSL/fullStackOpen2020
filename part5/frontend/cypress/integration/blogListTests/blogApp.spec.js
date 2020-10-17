@@ -1,5 +1,3 @@
-const { func } = require('prop-types');
-
 describe('checking that the application displays the login form by default.', function () {
   beforeEach(function () {
     cy.request('POST', 'http://localhost:3001/api/testing/reset');
