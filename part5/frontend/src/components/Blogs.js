@@ -69,7 +69,7 @@ const Blogs = ({ user, setUser, setNotification, setErrorMessage }) => {
           hideBlogForm={hideBlogForm}
         />
       </Togglable>
-      <div>
+      <div id='blogs'>
         {[]
           .concat(blogs)
           .sort((firstBlog, secondBlog) => secondBlog.likes - firstBlog.likes)
