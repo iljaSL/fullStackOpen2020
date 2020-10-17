@@ -58,7 +58,7 @@ const Blogs = ({ user, setUser, setNotification, setErrorMessage }) => {
     <div>
       <h2>blogs</h2>
       <p>
-        {user.name} logged in <button onClick={handleLogout}> logout </button>
+        {user.name} logged in <button id='logout-button' onClick={handleLogout}> logout </button>
       </p>
       <Togglable label='Create new blog' ref={blogFormRef}>
         <BlogForm

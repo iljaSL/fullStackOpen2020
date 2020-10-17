@@ -68,4 +68,45 @@ describe('checking that the application displays the login form by default.', fu
             cy.contains('likes 1');
         })
     })
+
+    describe('test with user id from local stroge', function () {
+        beforeEach(function () {
+            const user = {
+                username: 'plustig',
+                password: '12345',
+                name: 'Peter Lustig'
+            };
+            cy.createUser(user);
+            cy.login(user);
+
+            const blog = {
+                title: 'Cool Post 3',
+                author: 'Peter Lustig',
+                url: 'https://test.com'
+            };
+            cy.createBlogPost(blog);
+        });
+
+        it('user can delete own post', function () {
+            cy.get('#blogs > *').should('have.length', 1);
+            cy.get('.toggle-button').click();
+            cy.get('#remove-button').click();
+            cy.get('#blogs > *').should('have.length', 0);
+        })
+
+        it('user can not delete other user post', function () {
+            cy.get('#logout-button').click();
+
+            const user = {
+                username: 'pmueller',
+                password: '12345',
+                name: 'Peter Mueller'
+            };
+
+            cy.createUser(user);
+            cy.login(user);
+            cy.get('.toggle-button').click();
+            cy.get('#remove-button').should('not.exist');
+        })
+    })
 })
