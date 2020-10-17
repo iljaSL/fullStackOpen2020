@@ -24,12 +24,12 @@ const App = () => {
           setErrorMessage={setErrorMessage}
         />
       ) : (
-        <LoginForm
-          setUser={setUser}
-          setNotification={setNotification}
-          setErrorMessage={setErrorMessage}
-        />
-      )}
+          <LoginForm
+            setUser={setUser}
+            setNotification={setNotification}
+            setErrorMessage={setErrorMessage}
+          />
+        )}
     </div>
   );
 };

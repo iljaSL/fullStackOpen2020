@@ -42,7 +42,7 @@ const Notification = ({ message, type, setNotification, setErrorMessage }) => {
           ? updateNotification
           : errorNotification;
 
-  return <div style={notificationStyle}>{message}</div>;
+  return <div className={'error'} style={notificationStyle}>{message}</div>;
 };
 
 export default Notification;
