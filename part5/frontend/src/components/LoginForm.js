@@ -25,10 +25,11 @@ const LoginForm = ({ setUser, setNotification, setErrorMessage }) => {
   return (
     <>
       <h2>log in to the application</h2>
-      <form onSubmit={handleLogin}>
+      <form id='login-form' onSubmit={handleLogin}>
         <div>
           <label htmlFor='username'>Username: </label>
           <input
+            id='username'
             type='text'
             value={username}
             name='Username'
@@ -38,13 +39,14 @@ const LoginForm = ({ setUser, setNotification, setErrorMessage }) => {
         <div>
           <label htmlFor='password'>Password: </label>
           <input
+            id='password'
             type='password'
             value={password}
             name='Password'
             onChange={({ target }) => setPassword(target.value)}
           />
         </div>
-        <button type='submit'>login</button>
+        <button id='login-button' type='submit'>login</button>
       </form>
     </>
   );
