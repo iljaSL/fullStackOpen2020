@@ -6,12 +6,12 @@ import { setNotification } from '../reducers/notificationReducer';
 const AnecdoteForm = () => {
 	const dispatch = useDispatch();
 
-	const create = (e) => {
-		e.preventDefault();
-		const content = e.target.anecdote.value;
-		e.target.anecdote.value = '';
+	const create = (event) => {
+		event.preventDefault();
+		const content = event.target.anecdote.value;
+		event.target.anecdote.value = '';
 		dispatch(createAnecdote(content));
-		dispatch(setNotification(`You created ${content}`));
+		dispatch(setNotification(`you created '${content}'`));
 	};
 
 	return (
