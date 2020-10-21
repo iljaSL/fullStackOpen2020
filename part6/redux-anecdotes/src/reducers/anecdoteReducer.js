@@ -1,3 +1,5 @@
+import anecdoteService from '../services/anecdoteService';
+
 const anecdoteReducer = (state = [], action) => {
 	switch (action.type) {
 		case 'INITIALIZE_ANECDOTES':
@@ -28,9 +30,14 @@ export const createAnecdote = (content) => ({
 	data: content,
 });
 
-export const initializeAnecdotes = (anecdotes) => ({
-	type: 'INITIALIZE_ANECDOTES',
-	data: anecdotes,
-});
+export const initializeAnecdotes = () => {
+	return async (dispatch) => {
+		const anecdotes = await anecdoteService.getAll();
+		dispatch({
+			type: 'INITIALIZE_ANECDOTES',
+			data: anecdotes,
+		});
+	};
+};
 
 export default anecdoteReducer;
