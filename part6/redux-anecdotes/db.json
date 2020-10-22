@@ -47,8 +47,13 @@
     },
     {
       "content": "test 54",
-      "votes": 1,
+      "votes": 2,
       "id": "zaWNzyD"
+    },
+    {
+      "content": "test 545",
+      "votes": 3,
+      "id": "nvTEQ5L"
     }
   ]
 }
