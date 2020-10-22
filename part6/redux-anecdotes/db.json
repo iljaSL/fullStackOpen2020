@@ -2,7 +2,7 @@
   "anecdotes": [
     {
       "content": "If it hurts, do it more often",
-      "votes": 23,
+      "votes": 32,
       "id": "47145"
     },
     {
@@ -17,7 +17,7 @@
     },
     {
       "content": "Any fool can write code that a computer can understand. Good programmers write code that humans can understand.",
-      "votes": 2,
+      "votes": 3,
       "id": "36975"
     },
     {
@@ -27,7 +27,7 @@
     },
     {
       "content": "Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.",
-      "votes": 3,
+      "votes": 17,
       "id": "98312"
     },
     {
@@ -37,7 +37,7 @@
     },
     {
       "content": "test 54",
-      "votes": 23,
+      "votes": 37,
       "id": "5IQj5sb"
     },
     {
@@ -47,7 +47,7 @@
     },
     {
       "content": "test 54",
-      "votes": 0,
+      "votes": 1,
       "id": "zaWNzyD"
     }
   ]
