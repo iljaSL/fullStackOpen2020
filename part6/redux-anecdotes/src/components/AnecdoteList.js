@@ -11,7 +11,7 @@ const AnecdoteList = ({
 }) => {
 	const vote = (anecdote) => {
 		voteForAnecdotes(anecdote);
-		setNotification(`you voted '${anecdote.content}'`, 10);
+		setNotification(`you voted '${anecdote.content}'`, 20);
 	};
 
 	return (
