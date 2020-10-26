@@ -113,10 +113,16 @@ const CreateNew = (props) => {
 		props.notificationMessage(`a new anecdote ${content} created!`);
 	};
 
+	const handleReset = () => {
+		content.onReset();
+		author.onReset();
+		info.onReset();
+	};
+
 	return (
 		<div>
 			<h2>create a new anecdote</h2>
-			<form onSubmit={handleSubmit}>
+			<form onSubmit={handleSubmit} onReset={handleReset}>
 				<div>
 					content
 					<input name='content' {...content} />
@@ -129,7 +135,8 @@ const CreateNew = (props) => {
 					url for more info
 					<input name='info' {...info} />
 				</div>
-				<button>create</button>
+				<button type='submit'>create</button>
+				<button type='reset'>reset</button>
 			</form>
 		</div>
 	);
