@@ -1,0 +1,37 @@
+{
+  "notes": [
+    {
+      "content": "custom-hookit aivan mahtavia",
+      "id": 1
+    },
+    {
+      "content": "paras feature ikinä <3",
+      "id": 2
+    },
+    {
+      "content": "awesome blog",
+      "id": 3
+    },
+    {
+      "content": "test note",
+      "id": 4
+    }
+  ],
+  "persons": [
+    {
+      "name": "mluukkai",
+      "number": "040-5483923",
+      "id": 1
+    },
+    {
+      "name": "plustig ",
+      "number": "040-5483923",
+      "id": 2
+    },
+    {
+      "name": "plustige the second",
+      "number": " 040-5483923",
+      "id": 3
+    }
+  ]
+}
