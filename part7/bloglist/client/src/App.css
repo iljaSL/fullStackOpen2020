@@ -16,19 +16,15 @@ button {
 }
 
 .info {
-	color: green;
+	background: #dff2bf;
+	color: #4f8a10;
+	margin: 10px 0px;
+	padding: 12px;
 }
 
 .error {
-	color: red;
-}
-
-.info,
-.error {
-	background: lightgrey;
-	font-size: 20px;
-	border-style: solid;
-	border-radius: 5px;
-	padding: 10px;
-	margin-bottom: 10px;
+	background: #ffd2d2;
+	color: #d8000c;
+	margin: 10px 0px;
+	padding: 12px;
 }
