@@ -19,6 +19,13 @@ const Blogs = ({ user }) => {
 		blogFormRef.current.toggleVisibility();
 	};
 
+	const blogStyle = {
+		padding: 10,
+		border: 'solid',
+		borderWidth: 1,
+		marginBottom: 5,
+	};
+
 	return (
 		<div>
 			<h2>blogs</h2>
@@ -31,7 +38,7 @@ const Blogs = ({ user }) => {
 					.concat(blogs)
 					.sort((firstBlog, secondBlog) => secondBlog.likes - firstBlog.likes)
 					.map((blog) => (
-						<div key={blog.id}>
+						<div key={blog.id} style={blogStyle}>
 							<Link to={`/blogs/${blog.id}`}>
 								{blog.title} | {blog.author}
 							</Link>
