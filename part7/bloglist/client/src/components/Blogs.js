@@ -29,7 +29,6 @@ const Blogs = ({ user }) => {
 	return (
 		<div>
 			<h2>blogs</h2>
-			<p>{user.name} logged in </p>
 			<Togglable label='Create new blog' ref={blogFormRef}>
 				<BlogForm user={user} hideBlogForm={hideBlogForm} />
 			</Togglable>
@@ -40,7 +39,7 @@ const Blogs = ({ user }) => {
 					.map((blog) => (
 						<div key={blog.id} style={blogStyle}>
 							<Link to={`/blogs/${blog.id}`}>
-								{blog.title} | {blog.author}
+								{blog.title} by {blog.author}
 							</Link>
 						</div>
 					))}

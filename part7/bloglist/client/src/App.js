@@ -13,6 +13,7 @@ import Navbar from './components/Navbar';
 
 const App = () => {
 	const user = useSelector((state) => state.user);
+	const getUsers = useSelector((state) => state.users);
 
 	return (
 		<div>
@@ -28,7 +29,9 @@ const App = () => {
 							<Users />
 						</Route>
 						<Route exact path='/blogs/:blogId' component={Blog} />
-						<Route exact path='/users/:userId' component={User} />
+						<Route path='/users/:userId'>
+							<User users={getUsers} />
+						</Route>
 					</Switch>
 				</BrowserRouter>
 			) : (

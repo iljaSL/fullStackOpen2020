@@ -65,6 +65,9 @@ export const updateBlogInDb = (blog) => {
 		try {
 			const updatedBlog = await blogService.updateBlogPost(blog.id, {
 				likes: blog.likes + 1,
+				title: blog.title,
+				author: blog.author,
+				url: blog.url,
 			});
 			dispatch(updateLikes(updatedBlog.id, updatedBlog));
 		} catch (error) {

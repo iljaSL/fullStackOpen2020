@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateBlogInDb, removeBlogFromDb } from '../reducers/blogReducer';
 import PropTypes from 'prop-types';
+import Comment from './Comment';
 
 const Blog = ({ match }) => {
 	const { blogId } = match.params;

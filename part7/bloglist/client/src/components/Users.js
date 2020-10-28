@@ -21,7 +21,7 @@ const Users = () => {
 				<thead>
 					<tr>
 						<th></th>
-						<th>Blogs created</th>
+						<th>blogs created</th>
 					</tr>
 				</thead>
 
