@@ -1,47 +1,56 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateBlogInDb, removeBlogFromDb } from '../reducers/blogReducer';
+import PropTypes from 'prop-types';
 
-const Blog = ({ blog, countLikes, username, removeBlogPost }) => {
-  const [visibility, setVisibility] = useState(false);
-  const toggleVisibility = () => {
-    setVisibility(!visibility);
-  };
+const Blog = ({ match }) => {
+	const { blogId } = match.params;
 
-  const blogStyle = {
-    paddingTop: 10,
-    paddingLeft: 2,
-    border: 'solid',
-    width: 270,
-    borderWidth: 1,
-    marginBottom: 5,
-  };
+	const blogs = useSelector((state) => state.blogs);
+	const user = useSelector((state) => state.user);
+	const dispatch = useDispatch();
 
-  return (
-    <div style={blogStyle}>
-      <div className={'blog-heading'}>
-        {blog.title} by {blog.author}
-        <button className='toggle-button' onClick={toggleVisibility}>{visibility ? 'hide' : 'view'}</button>
-      </div>
-      {visibility && (
-        <div className='blog-details'>
-          <p>
-            link:
-            <a href={blog.url} target='_blank' rel='noopener noreferrer'>
-              {blog.url}
-            </a>
-          </p>
-          <p>
-            likes {blog.likes}{' '}
-            <button className='like-button' onClick={() => countLikes(blog)}>like</button>
-          </p>
-          <p>posted by {blog.user.name}</p>
-          {blog.user.username === username && (
-            <button id='remove-button' onClick={() => removeBlogPost(blog)}>Remove</button>
-          )}
-        </div>
-      )}
-      <br />
-    </div>
-  );
+	const [blog, setBlog] = useState(null);
+
+	useEffect(() => {
+		setBlog(blogs.find((blog) => blog.id === blogId));
+	}, [blogs, blogId]);
+
+	return blog ? (
+		<div className='blog'>
+			<div className={'blog-heading'}>
+				{blog.title} by {blog.author}
+			</div>
+			<div className='blog-details'>
+				<p>
+					link:
+					<a href={blog.url} target='_blank' rel='noopener noreferrer'>
+						{blog.url}
+					</a>
+				</p>
+				<p>
+					likes {blog.likes}{' '}
+					<button
+						className='like-button'
+						onClick={() => dispatch(updateBlogInDb(blog))}>
+						like
+					</button>
+				</p>
+				<p>posted by {blog.user.name}</p>
+				{blog.user.username === user.username && (
+					<button
+						id='remove-button'
+						onClick={() => dispatch(removeBlogFromDb(blog.id, user.token))}>
+						Remove
+					</button>
+				)}
+			</div>
+		</div>
+	) : null;
+};
+
+Blog.propTypes = {
+	match: PropTypes.object.isRequired,
 };
 
 export default Blog;
