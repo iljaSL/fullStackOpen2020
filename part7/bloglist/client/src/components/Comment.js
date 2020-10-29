@@ -1,8 +1,8 @@
 import React from 'react';
 import { useField } from '../hooks';
 
-const Comment = ({ createComment, blogID, blog }) => {
-	const [comment, commentReset] = useField('text');
+const Comment = () => {
+	const [comment] = useField('text');
 
 	const handleSubmit = (event) => {};
 

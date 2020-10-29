@@ -45,6 +45,7 @@ const Blog = ({ match }) => {
 						Remove
 					</button>
 				)}
+				<Comment />
 			</div>
 		</div>
 	) : null;
