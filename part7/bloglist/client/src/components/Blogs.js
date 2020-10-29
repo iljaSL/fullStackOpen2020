@@ -5,8 +5,14 @@ import Togglable from './Togglable';
 import { getAllBlogsFromDb } from '../reducers/blogReducer';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 const Blogs = ({ user }) => {
+	const BlogsStyle = styled.div`
+		background: BurlyWood;
+		padding: 1em;
+	`;
+
 	const blogs = useSelector((state) => state.blogs);
 	const dispatch = useDispatch();
 	const blogFormRef = useRef();
@@ -27,7 +33,7 @@ const Blogs = ({ user }) => {
 	};
 
 	return (
-		<div>
+		<BlogsStyle>
 			<h2>blogs</h2>
 			<Togglable label='Create new blog' ref={blogFormRef}>
 				<BlogForm user={user} hideBlogForm={hideBlogForm} />
@@ -44,7 +50,7 @@ const Blogs = ({ user }) => {
 						</div>
 					))}
 			</div>
-		</div>
+		</BlogsStyle>
 	);
 };
 

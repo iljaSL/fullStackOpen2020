@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { createBlogInDb } from '../reducers/blogReducer';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 const BlogForm = ({ user, hideBlogForm }) => {
 	const [title, setTitle] = useState('');
@@ -19,13 +20,35 @@ const BlogForm = ({ user, hideBlogForm }) => {
 		setUrl('');
 	};
 
+	const BlogFormSyled = styled.div`
+		background: BurlyWood;
+		padding: 1em;
+	`;
+
+	const StyledInput = styled.input`
+		border: 1px solid #000;
+		border-radius: 10px;
+		padding: 10px;
+		margin: 5px;
+		width: 150px;
+	`;
+
+	const Button = styled.button`
+		background: Bisque;
+		font-size: 1em;
+		margin: 1em;
+		padding: 0.25em 1em;
+		border: 2px solid Chocolate;
+		border-radius: 3px;
+	`;
+
 	return (
-		<div>
+		<BlogFormSyled>
 			<h2>create new</h2>
 			<form onSubmit={createBlog}>
 				<div>
 					title:
-					<input
+					<StyledInput
 						id='title'
 						value={title}
 						name='Title'
@@ -34,7 +57,7 @@ const BlogForm = ({ user, hideBlogForm }) => {
 				</div>
 				<div>
 					author:
-					<input
+					<StyledInput
 						id='author'
 						value={author}
 						name='Author'
@@ -43,7 +66,7 @@ const BlogForm = ({ user, hideBlogForm }) => {
 				</div>
 				<div>
 					url:
-					<input
+					<StyledInput
 						id='url'
 						value={url}
 						name='URL'
@@ -51,12 +74,12 @@ const BlogForm = ({ user, hideBlogForm }) => {
 					/>
 				</div>
 				<div>
-					<button id='create-blog-button' type='submit'>
+					<Button id='create-blog-button' type='submit'>
 						create
-					</button>
+					</Button>
 				</div>
 			</form>
-		</div>
+		</BlogFormSyled>
 	);
 };
 
